@@ -1,0 +1,84 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int rollNumber;
+    int age;
+    string grade;
+
+public:
+    Student(string name, int rollNumber, int age, string grade) {
+        this->name = name;
+        this->rollNumber = rollNumber;
+        this->age = age;
+        this->grade = grade;
+    }
+
+    void displayStudentDetails() {
+        cout << "Name: " << name << endl;
+        cout << "Roll Number: " << rollNumber << endl;
+        cout << "Age: " << age << endl;
+        cout << "Grade: " << grade << endl;
+    }
+
+    int getRollNumber() {
+        return rollNumber;
+    }
+};
+
+class StudentManager {
+private:
+    vector<Student> students;
+
+public:
+    void addStudent(Student student) {
+        students.push_back(student);
+    }
+
+    void displayAllStudents() {
+        cout << "List of all students:" << endl;
+        for (Student student : students) {
+            student.displayStudentDetails();
+            cout << endl;
+        }
+    }
+
+    void searchStudentByRollNumber(int rollNumber) {
+        bool found = false;
+        for (Student student : students) {
+            if (student.getRollNumber() == rollNumber) {
+                cout << "Student found:" << endl;
+                student.displayStudentDetails();
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            cout << "Student not found with roll number: " << rollNumber << endl;
+        }
+    }
+};
+
+int main() {
+    // Create student objects
+    Student student1("John Doe", 101, 17, "A");
+    Student student2("Jane Smith", 102, 16, "B");
+    Student student3("Alice Johnson", 103, 18, "A");
+
+    // Create a student manager
+    StudentManager manager;
+
+    // Add students to the manager
+    manager.addStudent(student1);
+    manager.addStudent(student2);
+    manager.addStudent(student3);
+
+    // Display all students
+    manager.displayAllStudents();
+
+    // Search for a student by roll number
